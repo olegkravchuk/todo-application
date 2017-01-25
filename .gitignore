@@ -1,0 +1,12 @@
+*.xcuserstate
+**/xcuserdata
+**/xcshareddata
+*.coverage
+*.pyc
+*.svn
+.idea
+
+static/release/**
+static/uploads/**
+
+logs/
