@@ -1,13 +1,21 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import { reducer } from 'redux-form'
+import { formReducer } from 'react-redux-form'
 
 import user from './user'
-//import page from './page'
+import todo from './todo'
+import status from './status'
 
+const initialUserState = {
+  username: '',
+  password: ''
+};
 
 export default combineReducers({
     user,
+    todo,
+    status,
     routing: routerReducer,
-    form: reducer
+    //user: modelReducer('user', initialUserState),
+    loginForm: formReducer('user', initialUserState)
 });

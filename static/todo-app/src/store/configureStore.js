@@ -4,15 +4,25 @@ import rootReducer from '../reducers'
 import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 import DevTools from '../containers/DevTools';
+import axios from 'axios';
+import axiosMiddleware from 'redux-axios-middleware';
 
 
 export default function configureStore(initialState) {
     const logger = createLogger();
+    const client = axios.create({ //all axios can be used, shown in axios documentation
+        baseURL:'http://127.0.0.1:8000/',
+        responseType: 'json'
+    });
     const store = createStore(
         rootReducer,
         initialState,
         compose(
-            applyMiddleware(thunk, logger),
+            applyMiddleware(
+                thunk,
+                logger,
+                axiosMiddleware(client)
+            ),
             DevTools.instrument()
         )
     );

@@ -12,7 +12,7 @@ export default class Login extends Component{
         return (
             <Row>
                 <div className='container'>
-                    <LoginForm onSubmit={this.handleSubmit} />
+                    <LoginForm />
                 </div>
             </Row>
         )

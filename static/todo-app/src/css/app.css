@@ -1,3 +1,7 @@
 nav, .side-nav .collapsible-body li.active, .side-nav.fixed .collapsible-body li.active, footer.page-footer {
     background: #38435a;
 }
+
+span.badge.new:after {
+    content: "";
+}

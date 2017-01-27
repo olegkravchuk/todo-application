@@ -22,7 +22,10 @@ import {
   LOGOUT_SUCCESS
 } from '../constants/User'
 
-const initialState = JSON.parse(window.localStorage.getItem('rr_user')) || {}
+const initialState = {
+    username: '',
+    password: ''
+};
 
 export default function userstate(state = initialState, action) {
 
