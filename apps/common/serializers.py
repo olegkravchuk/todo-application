@@ -35,7 +35,7 @@ class TodoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Todo
-        fields = ['url', 'id', 'name', 'created', 'status', 'author', 'comments']
+        fields = ['url', 'id', 'name', 'description', 'created', 'status', 'author', 'comments']
 
     def create(self, validated_data):
         # Override default `.create()` method in order to properly add `status` into the model

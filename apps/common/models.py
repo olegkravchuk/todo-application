@@ -18,6 +18,7 @@ class Status(models.Model):
 class Todo(models.Model):
     name = models.CharField(max_length=255, verbose_name=u'Название')
     status = models.ForeignKey(Status, verbose_name=u'Статус')
+    description = models.TextField(verbose_name=u'Описание', null=True, blank=True)
     created = models.DateTimeField(verbose_name=u'Созданно', auto_now_add=True)
     author = models.ForeignKey('auth.User', related_name='todos', verbose_name=u'Автор')
 
