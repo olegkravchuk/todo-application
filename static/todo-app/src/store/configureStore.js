@@ -6,6 +6,8 @@ import thunk from 'redux-thunk'
 import DevTools from '../containers/DevTools';
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
+//import { combineForms } from 'react-redux-form';
+//import user from '../reducers/user'
 
 
 export default function configureStore(initialState) {
@@ -14,6 +16,10 @@ export default function configureStore(initialState) {
         baseURL:'http://127.0.0.1:8000/',
         responseType: 'json'
     });
+    //const initialUserState = {
+    //    username: '',
+    //    password: ''
+    //};
     const store = createStore(
         rootReducer,
         initialState,
@@ -25,6 +31,9 @@ export default function configureStore(initialState) {
             ),
             DevTools.instrument()
         )
+    //combineForms({
+    //    user: initialUserState
+    //})
     );
 
     if (module.hot) {

@@ -1,20 +1,3 @@
-//import {LOGIN_SUCCES, LOGIN_FAIL} from '../constants/User'
-//
-//const initialState = {
-//    name: '',
-//    error: ''
-//};
-//
-//export default function user(state=initialState, action){
-//    switch (action.type){
-//        case LOGIN_SUCCES:
-//            return {...state, name: action.payload, error: ''};
-//        case LOGIN_FAIL:
-//            return {...state, error: action.payload.message};
-//        default:
-//            return state
-//    }
-//}
 import {
   LOGIN_REQUEST,
   LOGIN_FAIL,
@@ -22,32 +5,27 @@ import {
   LOGOUT_SUCCESS
 } from '../constants/User'
 
-const initialState = {
+export const initialState = {
     username: '',
-    password: ''
+    password: '',
+    error: {}
 };
 
-export default function userstate(state = initialState, action) {
-
-  switch (action.type) {
-
-    case LOGIN_REQUEST:
-      // TODO
-      return {};
-
-    case LOGIN_SUCCESS:
-      // TODO
-      return {};
-
-    case LOGIN_FAIL:
-      // TODO
-      return {};
-
-    case LOGOUT_SUCCESS:
-      // TODO
-      return {};
-
-    default:
-      return state
+export default function user(state = initialState, action) {
+    switch (action.type) {
+        case LOGIN_REQUEST:
+            console.log('LOGIN_REQUEST', action.payload);
+            return {...state};
+        case LOGIN_SUCCESS:
+            console.log('LOGIN_SUCCESS', action.payload);
+            return {...state};
+        case LOGIN_FAIL:
+            console.log('LOGIN_FAIL', action.payload);
+            return {...state, error: action.error.response.data};
+        case LOGOUT_SUCCESS:
+            console.log('LOGOUT_SUCCESS', action.payload);
+            return {...state};
+        default:
+            return state
     }
 }

@@ -5,9 +5,17 @@ import {
   LOGOUT_SUCCESS
 } from '../constants/User'
 
-export function login(payload) {
+export function login(user) {
+    console.log(user, 'sdsdsdsdsds');
     return {
-        type: LOGIN_REQUEST
+        types: [LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAIL],
+        payload: {
+            request:{
+                method: 'post',
+                url:'api-token-auth/',
+                data: user
+            }
+        }
     }
 }
 

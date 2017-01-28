@@ -1,20 +1,35 @@
 import React, {Component} from 'react'
+import {bindActionCreators} from 'redux'
+import {connect} from 'react-redux'
 import LoginForm from '../components/LoginForm';
 import {Row} from 'react-materialize';
+import * as userActions from '../actions/UserActions'
 
 
-export default class Login extends Component{
-    handleSubmit = (values) => {
-        // Do something with the form values
-        console.log(values);
-      }
+class Login extends Component{
     render(){
         return (
             <Row>
                 <div className='container'>
-                    <LoginForm />
+                    <LoginForm user={this.props.user} login={this.props.userActions.login} dispatch={this.props.dispatch}/>
                 </div>
             </Row>
         )
     }
 }
+
+
+function mapStateToProps(state){
+    return {
+        user: state.user
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return {
+        userActions: bindActionCreators(userActions, dispatch),
+        dispatch: dispatch
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
