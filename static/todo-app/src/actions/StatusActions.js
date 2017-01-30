@@ -10,7 +10,7 @@ export function getStatuses() {
         types: [GET_STATUSES_REQUEST, GET_STATUSES_SUCCESS, GET_STATUSES_FAIL],
         payload: {
             request:{
-                url:'statuses'
+                url:'statuses/'
             }
         }
     }

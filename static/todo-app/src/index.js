@@ -25,8 +25,8 @@ render(
         <div className='app'>
             <Router history={history}>
                 <Route path="/" component={App}>
-                    <IndexRoute component={Home}/>
-                    <Route path="about" component={About}/>
+                    <IndexRoute component={Home} onEnter={requireAuth} />
+                    <Route path="about" component={About} onEnter={requireAuth}/>
                     <Route path="login" component={Login}/>
                     <Route path="registration" component={Registration}/>
                 </Route>
@@ -36,3 +36,13 @@ render(
     </Provider>,
     document.getElementById('root')
 );
+
+
+function requireAuth(nextState, replace) {
+    if (!sessionStorage.jwt) {
+        replace({
+            pathname: '/login',
+            state: { nextPathname: nextState.location.pathname }
+        })
+    }
+}

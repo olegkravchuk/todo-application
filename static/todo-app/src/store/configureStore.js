@@ -1,4 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux'
+import { routerMiddleware } from 'react-router-redux'
+import { browserHistory } from 'react-router'
 import rootReducer from '../reducers'
 //import {ping} from '../middlewares/ping'
 import createLogger from 'redux-logger'
@@ -6,8 +8,7 @@ import thunk from 'redux-thunk'
 import DevTools from '../containers/DevTools';
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
-//import { combineForms } from 'react-redux-form';
-//import user from '../reducers/user'
+import {getToken} from '../reducers/user'
 
 
 export default function configureStore(initialState) {
@@ -15,11 +16,26 @@ export default function configureStore(initialState) {
     const client = axios.create({ //all axios can be used, shown in axios documentation
         baseURL:'http://127.0.0.1:8000/',
         responseType: 'json'
-    });
-    //const initialUserState = {
-    //    username: '',
-    //    password: ''
-    //};
+    }
+    );
+    const option = {
+        interceptors: {
+            request: [
+                (func, config) => {
+                    if(getToken()) {
+                        config.headers['Authorization'] = 'JWT ' + getToken();
+                    }
+                    return config
+                }
+            ],
+            response: [
+                (getState, response) => {
+                    return response
+                }
+            ]
+        }
+    };
+
     const store = createStore(
         rootReducer,
         initialState,
@@ -27,13 +43,11 @@ export default function configureStore(initialState) {
             applyMiddleware(
                 thunk,
                 logger,
-                axiosMiddleware(client)
+                axiosMiddleware(client, option),
+                routerMiddleware(browserHistory)
             ),
             DevTools.instrument()
         )
-    //combineForms({
-    //    user: initialUserState
-    //})
     );
 
     if (module.hot) {

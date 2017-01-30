@@ -10,7 +10,7 @@ export function getTodos() {
         types: [GET_TODOS_REQUEST, GET_TODOS_SUCCESS, GET_TODOS_FAIL],
         payload: {
             request:{
-                url:'todos'
+                url:'todos/'
             }
         }
     }

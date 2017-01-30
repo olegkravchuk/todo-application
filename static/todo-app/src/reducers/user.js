@@ -7,20 +7,23 @@ import {
 
 export const initialState = {
     username: '',
-    password: '',
+    jwt: '',
     error: {}
+};
+
+export const initialAuthState = {
+    username: '',
+    password: ''
 };
 
 export default function user(state = initialState, action) {
     switch (action.type) {
         case LOGIN_REQUEST:
-            console.log('LOGIN_REQUEST', action.payload);
             return {...state};
         case LOGIN_SUCCESS:
-            console.log('LOGIN_SUCCESS', action.payload);
-            return {...state};
+            sessionStorage.setItem('jwt', action.payload.data.token);
+            return {...state, error: {}, jwt: action.payload.data.token};
         case LOGIN_FAIL:
-            console.log('LOGIN_FAIL', action.payload);
             return {...state, error: action.error.response.data};
         case LOGOUT_SUCCESS:
             console.log('LOGOUT_SUCCESS', action.payload);
@@ -28,4 +31,9 @@ export default function user(state = initialState, action) {
         default:
             return state
     }
+}
+
+
+export function getToken(){
+    return sessionStorage.jwt || ''
 }

@@ -4,14 +4,19 @@ import {connect} from 'react-redux'
 import LoginForm from '../components/LoginForm';
 import {Row} from 'react-materialize';
 import * as userActions from '../actions/UserActions'
+import { browserHistory } from 'react-router'
 
 
 class Login extends Component{
+
     render(){
+        if(this.props.user.jwt){
+           browserHistory.push('/');
+        }
         return (
             <Row>
                 <div className='container'>
-                    <LoginForm user={this.props.user} login={this.props.userActions.login} dispatch={this.props.dispatch}/>
+                    <LoginForm user={this.props.user} login={this.props.userActions.login}/>
                 </div>
             </Row>
         )
@@ -27,8 +32,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
     return {
-        userActions: bindActionCreators(userActions, dispatch),
-        dispatch: dispatch
+        userActions: bindActionCreators(userActions, dispatch)
     }
 }
 
