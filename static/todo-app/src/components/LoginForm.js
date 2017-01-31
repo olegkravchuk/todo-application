@@ -17,7 +17,7 @@ export default class LoginForm extends Component{
         let { error } = this.props.user;
         return (
             <Card className=''>
-                <Form  model="auth.user" onSubmit={(user) => this.handleSubmit(user)}>
+                <Form  model="auth.userLogin" onSubmit={(user) => this.handleSubmit(user)}>
                     <h2 className="card-heading center">Login</h2>
                     {error.non_field_errors ? <h6 className='red-text center'>{error.non_field_errors.toString()}</h6>: ''}
                     <Row>

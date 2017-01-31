@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import { combineForms } from 'react-redux-form'
 
-import user, {initialAuthState} from './user'
+import user, {initialAuthState, initialRegisterState} from './user'
 import todo from './todo'
 import status from './status'
 
@@ -13,6 +13,7 @@ export default combineReducers({
     status,
     routing: routerReducer,
     auth: combineForms({
-        user: initialAuthState
+        userLogin: initialAuthState,
+        userRegister: initialRegisterState
     }, 'auth')
 });

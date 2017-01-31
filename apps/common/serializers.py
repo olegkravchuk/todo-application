@@ -4,6 +4,11 @@ from rest_framework.decorators import permission_classes
 from rest_framework.exceptions import NotFound
 from apps.common.models import Todo, Status, Comment
 from apps.common.permissions import AllowedUpdateUser
+from rest_framework_jwt.settings import api_settings
+
+
+jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 
 class StatusSerializer(serializers.ModelSerializer):
@@ -49,9 +54,16 @@ class TodoSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    jwt = serializers.SerializerMethodField('get_token_jwt')
+
+    def get_token_jwt(self, obj):
+        payload = jwt_payload_handler(obj)
+        token = jwt_encode_handler(payload)
+        return token
+
     class Meta:
         model = User
-        fields = ('url', 'id', 'username', 'email', 'password')
+        fields = ('url', 'id', 'username', 'email', 'password', 'jwt')
         extra_kwargs = {"password":
                             {"write_only": True}
                         }

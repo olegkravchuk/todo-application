@@ -1,28 +1,22 @@
 import React, {Component} from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import SignUpForm from '../components/SignUpForm';
-import {Row} from 'react-materialize';
 import * as userActions from '../actions/UserActions'
 import { browserHistory } from 'react-router'
 
 
-class Registration extends Component{
+class LogOut extends Component {
+    componentWillMount () {
+        this.props.userActions.logout();
+    }
 
     render(){
-        if(this.props.user.jwt){
+        if(!this.props.user.jwt){
             browserHistory.push('/');
         }
-        return (
-            <Row>
-                <div className='container'>
-                    <SignUpForm user={this.props.user} register={this.props.userActions.register}/>
-                </div>
-            </Row>
-        )
+        return <div></div>
     }
 }
-
 
 function mapStateToProps(state){
     return {
@@ -36,4 +30,4 @@ function mapDispatchToProps(dispatch){
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Registration)
+export default connect(mapStateToProps, mapDispatchToProps)(LogOut)

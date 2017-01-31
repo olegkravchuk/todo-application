@@ -1,14 +1,21 @@
 import {
-  LOGIN_REQUEST,
-  LOGIN_FAIL,
-  LOGIN_SUCCESS,
-  LOGOUT_SUCCESS
+    LOGIN_REQUEST,
+    LOGIN_FAIL,
+    LOGIN_SUCCESS,
+    LOGOUT_SUCCESS,
+    REGISTER_REQUEST,
+    REGISTER_FAIL,
+    REGISTER_SUCCESS
 } from '../constants/User'
+
 
 export const initialState = {
     username: '',
+    id: '',
+    email: '',
     jwt: '',
-    error: {}
+    error: {},
+    loading: false
 };
 
 export const initialAuthState = {
@@ -16,18 +23,35 @@ export const initialAuthState = {
     password: ''
 };
 
+export const initialRegisterState = {
+    username: '',
+    email: '',
+    password: '',
+    passwordConfirm: ''
+};
+
 export default function user(state = initialState, action) {
+    console.log(action.type);
     switch (action.type) {
         case LOGIN_REQUEST:
-            return {...state};
+            return {...state, loading: true};
         case LOGIN_SUCCESS:
             sessionStorage.setItem('jwt', action.payload.data.token);
-            return {...state, error: {}, jwt: action.payload.data.token};
+            return {...state, ...action.payload.data.user, error: {}, jwt: action.payload.data.token, loading: false};
         case LOGIN_FAIL:
-            return {...state, error: action.error.response.data};
+            return {...state, error: action.error.response.data, loading: false};
         case LOGOUT_SUCCESS:
-            console.log('LOGOUT_SUCCESS', action.payload);
-            return {...state};
+            sessionStorage.removeItem('jwt');
+            return {...state, ...initialState, loading: false};
+
+        case REGISTER_REQUEST:
+            return {...state, loading: true};
+        case REGISTER_FAIL:
+            return {...state, error: action.error.response.data, loading: false};
+        case REGISTER_SUCCESS:
+            sessionStorage.setItem('jwt', action.payload.data.jwt);
+            return {...state, ...action.payload.data, loading: false};
+
         default:
             return state
     }

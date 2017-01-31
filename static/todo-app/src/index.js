@@ -11,6 +11,7 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Login from './pages/Login'
 import Registration from './pages/Registration'
+import LogOut from './pages/LogOut'
 import './css/materialize.min.css'
 import './css/app.css'
 //import {} from './js/materialize.min.js'
@@ -29,6 +30,7 @@ render(
                     <Route path="about" component={About} onEnter={requireAuth}/>
                     <Route path="login" component={Login}/>
                     <Route path="registration" component={Registration}/>
+                    <Route path="logout" component={LogOut} onEnter={requireAuth}/>
                 </Route>
             </Router>
             <DevTools/>
