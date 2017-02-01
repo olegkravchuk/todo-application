@@ -1,13 +1,15 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
-import { combineForms } from 'react-redux-form'
+import { combineForms, createForms } from 'react-redux-form'
 
 import user, {initialAuthState, initialRegisterState} from './user'
-import todo from './todo'
+import todo, {initialTodoState} from './todo'
 import status from './status'
+import modal from './modal'
 
 
 export default combineReducers({
+    modal,
     user,
     todo,
     status,
@@ -15,5 +17,8 @@ export default combineReducers({
     auth: combineForms({
         userLogin: initialAuthState,
         userRegister: initialRegisterState
-    }, 'auth')
+    }, 'auth'),
+    ...createForms({
+        todoModel: initialTodoState
+    })
 });

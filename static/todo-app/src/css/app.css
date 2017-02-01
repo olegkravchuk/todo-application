@@ -5,3 +5,7 @@ nav, .side-nav .collapsible-body li.active, .side-nav.fixed .collapsible-body li
 span.badge.new:after {
     content: "";
 }
+
+.ReactModal__Body--open {
+    overflow: hidden;
+}

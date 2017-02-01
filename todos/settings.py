@@ -102,7 +102,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
-    'PAGE_SIZE': 5
+    'PAGE_SIZE': 100000
 }
 
 JWT_AUTH = {

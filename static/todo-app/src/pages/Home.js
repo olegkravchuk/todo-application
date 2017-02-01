@@ -4,17 +4,42 @@ import {connect} from 'react-redux'
 import {Row, Col, Preloader, Button} from 'react-materialize';
 import * as todoActions from '../actions/TodoActions'
 import * as statusActions from '../actions/StatusActions'
+import * as modalActions from '../actions/modalActions'
+//import {initialTodoState} from '../reducers/todo'
 import Status from '../components/Status'
+import TodoForm from '../components/TodoForm'
+import Modal from 'react-modal';
+import {customStyles} from '../constants/Modal'
+import {
+    actions
+} from 'react-redux-form';
+
 
 
 class Home extends Component {
+
+
     componentDidMount() {
         this.props.todoActions.getTodos();
         this.props.statusActions.getStatuses()
     }
 
+    openModal(){
+        this.props.modalActions.show()
+    }
+
+    closeModal(){
+        this.props.modalActions.hide();
+
+        actions.change('todoModel.name','qqqqqq')
+    }
+
     render(){
         const {results, loading} = this.props.todo;
+        if(this.props.todo.created){
+            //this.props.modalActions.hide();
+
+        }
 
         return (
             <Row className='container'>
@@ -25,7 +50,13 @@ class Home extends Component {
                         <Status data={this.props.status}/>
                     </Col>
                     <Col l={1} m={1} s={2}>
-                        <Button floating large className='red right' waves='light' icon='add' />
+                        <Button onClick={::this.openModal} floating large className='red right' waves='light' icon='add' />
+                        <Modal isOpen={this.props.modal.show}
+                               style={customStyles}
+                               shouldCloseOnOverlayClick={true}>
+                            <TodoForm todo={this.props.todo} status={this.props.status.results} create={this.props.todoActions.cteateTodo} />
+                            <h6 className='center'><Button onClick={::this.closeModal} waves='light'>Close</Button></h6>
+                        </Modal>
                     </Col>
                 </Row>
                 <Row>
@@ -53,14 +84,16 @@ class Home extends Component {
 function mapStateToProps(state){
     return {
         todo: state.todo,
-        status: state.status
+        status: state.status,
+        modal: state.modal
     }
 }
 
 function mapDispatchToProps(dispatch){
     return {
         todoActions: bindActionCreators(todoActions, dispatch),
-        statusActions: bindActionCreators(statusActions, dispatch)
+        statusActions: bindActionCreators(statusActions, dispatch),
+        modalActions: bindActionCreators(modalActions, dispatch)
     }
 }
 
