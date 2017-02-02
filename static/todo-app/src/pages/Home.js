@@ -31,14 +31,21 @@ class Home extends Component {
     closeModal(){
         this.props.modalActions.hide();
 
-        actions.change('todoModel.name','qqqqqq')
+       this.props.dispatch(actions.reset('todoModel'))
+    }
+
+    selectedStatus(statusCode){
+        let filter = {
+            status: statusCode
+        };
+        this.props.todoActions.getTodos(filter)
     }
 
     render(){
         const {results, loading} = this.props.todo;
         if(this.props.todo.created){
-            //this.props.modalActions.hide();
-
+            this.props.modalActions.hide();
+            this.props.todoActions.changeStatusCreatedTodo();
         }
 
         return (
@@ -47,13 +54,14 @@ class Home extends Component {
                 <div className='center'><Preloader size='small' active={loading}/></div>
                 <Row>
                     <Col l={11} m={11} s={10}>
-                        <Status data={this.props.status}/>
+                        <Status data={this.props.status} selectedStatus={::this.selectedStatus}/>
                     </Col>
                     <Col l={1} m={1} s={2}>
                         <Button onClick={::this.openModal} floating large className='red right' waves='light' icon='add' />
                         <Modal isOpen={this.props.modal.show}
                                style={customStyles}
-                               shouldCloseOnOverlayClick={true}>
+                               shouldCloseOnOverlayClick={true}
+                               contentLabel="Create Todo">
                             <TodoForm todo={this.props.todo} status={this.props.status.results} create={this.props.todoActions.cteateTodo} />
                             <h6 className='center'><Button onClick={::this.closeModal} waves='light'>Close</Button></h6>
                         </Modal>
@@ -93,7 +101,8 @@ function mapDispatchToProps(dispatch){
     return {
         todoActions: bindActionCreators(todoActions, dispatch),
         statusActions: bindActionCreators(statusActions, dispatch),
-        modalActions: bindActionCreators(modalActions, dispatch)
+        modalActions: bindActionCreators(modalActions, dispatch),
+        dispatch: dispatch
     }
 }
 

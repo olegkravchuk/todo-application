@@ -7,6 +7,7 @@ import {
     REGISTER_FAIL,
     REGISTER_SUCCESS
 } from '../constants/User'
+import jwt_decode from 'jwt-decode'
 
 
 export const initialState = {
@@ -15,7 +16,8 @@ export const initialState = {
     email: '',
     jwt: '',
     error: {},
-    loading: false
+    loading: false,
+    ...decodeToken()
 };
 
 export const initialAuthState = {
@@ -40,9 +42,10 @@ export default function user(state = initialState, action) {
             return {...state, ...action.payload.data.user, error: {}, jwt: action.payload.data.token, loading: false};
         case LOGIN_FAIL:
             return {...state, error: action.error.response.data, loading: false};
+
         case LOGOUT_SUCCESS:
             sessionStorage.removeItem('jwt');
-            return {...state, ...initialState, loading: false};
+            return {...state, ...initialState, username: '', id: '', email: '', jwt: ''};
 
         case REGISTER_REQUEST:
             return {...state, loading: true};
@@ -60,4 +63,17 @@ export default function user(state = initialState, action) {
 
 export function getToken(){
     return sessionStorage.jwt || ''
+}
+
+export function decodeToken(){
+    if (sessionStorage.jwt){
+        let token = jwt_decode(sessionStorage.jwt);
+        return {
+            username: token.username,
+            id: token.user_id,
+            email: token.email,
+            jwt: sessionStorage.jwt
+        }
+    }
+
 }

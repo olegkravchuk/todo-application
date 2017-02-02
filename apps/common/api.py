@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status, permissions, viewsets
 from rest_framework.decorators import api_view, permission_classes
+from apps.common.filters import TodoFilter
 from apps.common.models import Todo, Status, Comment
 from apps.common.permissions import IsAuthorOrReadOnly, AllowedUpdateUser
 from apps.common.serializers import TodoSerializer, UserSerializer, StatusSerializer, CommentSerializer
@@ -14,6 +16,8 @@ class TodoViewSet(viewsets.ModelViewSet):
     """
     queryset = Todo.objects.all()
     serializer_class = TodoSerializer
+    # filter_backends = (DjangoFilterBackend,)
+    filter_class = TodoFilter
 
     def get_queryset(self):
         queryset = super(TodoViewSet, self).get_queryset()
