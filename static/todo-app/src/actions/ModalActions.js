@@ -1,15 +1,15 @@
 import {SHOW_MODAL, HIDE_MODAL} from '../constants/Modal'
 
-export function show() {
+export function show(name) {
     return {
         type: SHOW_MODAL,
-        payload: true
+        payload: {show: true, name: name}
         }
     }
 
-export function hide() {
+export function hide(name) {
     return {
         type: HIDE_MODAL,
-        payload: false
+        payload: {show: false, name: name}
         }
     }

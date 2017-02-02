@@ -14,14 +14,18 @@ const statusField = (props) => <Input l={12} m={12} label="Status" validate type
 
 export default class TodoForm extends Component{
     handleSubmit(todo){
-        this.props.create(todo);
+        if(todo.id){
+            this.props.update(todo);
+        }else{
+            this.props.create(todo);
+        }
     }
     render(){
         let { error } = this.props.todo;
         return (
                 <Form  model="todoModel"
                        onSubmit={(todo) => this.handleSubmit(todo)}>
-                    <h2 className="card-heading center">Create ToDo</h2>
+                    <h2 className="card-heading center">{this.props.todoModel.id ? 'Update Todo' : 'Create ToDo'}</h2>
                     {error.non_field_errors ? <h6 className='red-text center'>{error.non_field_errors.toString()}</h6>: ''}
                     <Row>
                         <Col l={12} m={12} s={12}>
@@ -79,7 +83,7 @@ export default class TodoForm extends Component{
                     </Row>
                     <Row>
                         <Col l={12} m={12} s={12} className="center">
-                            <Button waves='light'>Create</Button>
+                            <Button waves='light'>{this.props.todoModel.id ? 'Update' : 'Create'}</Button>
                         </Col>
                     </Row>
                 </Form>

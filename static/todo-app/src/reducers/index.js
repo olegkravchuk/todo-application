@@ -4,7 +4,7 @@ import { combineForms, createForms } from 'react-redux-form'
 
 import user, {initialAuthState, initialRegisterState} from './user'
 import todo, {initialTodoState} from './todo'
-import status from './status'
+import status, {initialStatusState} from './status'
 import modal from './modal'
 
 
@@ -19,6 +19,7 @@ export default combineReducers({
         userRegister: initialRegisterState
     }, 'auth'),
     ...createForms({
-        todoModel: initialTodoState
+        todoModel: initialTodoState,
+        statusModel: initialStatusState
     })
 });

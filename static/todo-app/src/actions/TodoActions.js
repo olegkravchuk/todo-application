@@ -36,6 +36,20 @@ export function cteateTodo(todo) {
     }
 }
 
+export function updateTodo(todo) {
+    var copy = {...todo, status: JSON.parse(todo.status)};
+    return {
+        types: [POST_TODOS_REQUEST, POST_TODOS_SUCCESS, POST_TODOS_FAIL],
+        payload: {
+            request:{
+                url: 'todos/' + copy.id + '/',
+                method: 'put',
+                data: copy
+            }
+        }
+    }
+}
+
 export function changeStatusCreatedTodo(created=false) {
     return {
         type: CHANGE_STATUS_CREATED,

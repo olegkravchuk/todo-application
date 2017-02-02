@@ -4,7 +4,7 @@ from django.db import models
 
 class Status(models.Model):
     name = models.CharField(max_length=100, verbose_name=u'Название')
-    code = models.CharField(max_length=100, verbose_name=u'Код')
+    code = models.CharField(max_length=100, verbose_name=u'Код', unique=True)
     author = models.ForeignKey('auth.User', related_name='statuses', verbose_name=u'Автор')
 
     class Meta:

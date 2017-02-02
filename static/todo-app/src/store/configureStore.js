@@ -5,7 +5,7 @@ import rootReducer from '../reducers'
 //import {ping} from '../middlewares/ping'
 import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
-import DevTools from '../containers/DevTools';
+//import DevTools from '../containers/DevTools';
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
 import {getToken} from '../reducers/user'
@@ -46,7 +46,8 @@ export default function configureStore(initialState) {
                 axiosMiddleware(client, option),
                 routerMiddleware(browserHistory)
             ),
-            DevTools.instrument()
+            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+            //DevTools.instrument()
         )
     );
 
