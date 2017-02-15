@@ -14,7 +14,7 @@ jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 class StatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Status
-        fields = ('url', 'id', 'name', 'code')
+        fields = ('id', 'name', 'code')
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -32,10 +32,16 @@ class CommentSerializer(serializers.ModelSerializer):
     #     self.fields['todo'].queryset = Todo.objects.filter(author=user)
 
 
+class StatusField(serializers.PrimaryKeyRelatedField):
+    def to_representation(self, value):
+        serializer = StatusSerializer(Status.objects.get(id=value.pk))
+        return serializer.data
+
+
 class TodoSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
-    # status = serializers.PrimaryKeyRelatedField(queryset=Status.objects.all())
-    status = StatusSerializer()
+    status = StatusField(read_only=True)
+    # status = StatusSerializer()
     comments = CommentSerializer(many=True, read_only=True)
 
     class Meta:

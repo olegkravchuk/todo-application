@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status, permissions, viewsets
 from rest_framework.decorators import api_view, permission_classes
@@ -25,6 +26,9 @@ class TodoViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+
+    def perform_update(self, serializer):
+        serializer.save(status=get_object_or_404(Status, **self.request.data.get('status')))
 
 
 @permission_classes((permissions.IsAuthenticatedOrReadOnly,))
