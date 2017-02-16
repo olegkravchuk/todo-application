@@ -9,3 +9,7 @@ span.badge.new:after {
 .ReactModal__Body--open {
     overflow: hidden;
 }
+
+.tabs .indicator {
+    background-color: #38435a;
+}

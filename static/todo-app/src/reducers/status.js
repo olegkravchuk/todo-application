@@ -6,7 +6,12 @@ import {
     POST_STATUS_REQUEST,
     POST_STATUS_SUCCESS,
     POST_STATUS_FAIL,
-    CHANGE_STATUS_CREATED
+
+    CHANGE_STATUS_CREATED,
+
+    DELETE_STATUS_REQUEST,
+    DELETE_STATUS_SUCCESS,
+    DELETE_STATUS_FAIL
 } from '../constants/Status'
 
 
@@ -43,6 +48,14 @@ export default function todo(state=initialState, action){
             return {...state, results: results, count: results.length, loading: false, created: true};
         case POST_STATUS_FAIL:
             return {...state, error: action.error.response.data, loading: false, created: false};
+
+        case DELETE_STATUS_REQUEST:
+            return {...state, loading: true, created: false};
+        case DELETE_STATUS_SUCCESS:
+            return {...state};
+        case DELETE_STATUS_FAIL:
+            return {...state, error: action.error.response.data, loading: false, created: false};
+
         case CHANGE_STATUS_CREATED:
             return {...state, created: action.payload};
         default:

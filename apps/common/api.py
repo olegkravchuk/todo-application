@@ -25,10 +25,10 @@ class TodoViewSet(viewsets.ModelViewSet):
         return queryset.filter(author=self.request.user if not self.request.user.is_anonymous() else None)
 
     def perform_create(self, serializer):
-        serializer.save(author=self.request.user)
+        serializer.save(author=self.request.user, status=get_object_or_404(Status, id=self.request.data.get('status').get('id')))
 
     def perform_update(self, serializer):
-        serializer.save(status=get_object_or_404(Status, **self.request.data.get('status')))
+        serializer.save(status=get_object_or_404(Status, id=self.request.data.get('status').get('id')))
 
 
 @permission_classes((permissions.IsAuthenticatedOrReadOnly,))

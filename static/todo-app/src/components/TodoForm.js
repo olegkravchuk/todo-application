@@ -8,7 +8,7 @@ const nameField = (props) => <Input l={12} m={12} label="Name" validate {...prop
 const descriptionField = (props) => <Input l={12} m={12} label="Description" validate type="textarea" {...props}><Icon>mode_edit_circle</Icon></Input>;
 const statusField = (props) => <Input l={12} m={12} label="Status" validate type="select" {...props}>
                                     <option value=''>--------</option>
-                                   {props.status.map((status) => <option key={status.id} value={JSON.stringify(status)}>{status.name}</option>)}
+                                   {props.status.map((status) => <option key={status.id} value={status.id}>{status.name}</option>)}
                                </Input>;
 
 
@@ -62,7 +62,7 @@ export default class TodoForm extends Component{
                     </Row>
                     <Row>
                         <Col l={12} m={12} s={12} >
-                            <Control model=".status"
+                            <Control model=".status.id"
                                      validators={{
                                         isRequired: (val) => val && !!val.length
                                      }}

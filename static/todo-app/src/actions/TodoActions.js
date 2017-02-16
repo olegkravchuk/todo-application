@@ -2,9 +2,15 @@ import {
     GET_TODOS_REQUEST,
     GET_TODOS_FAIL,
     GET_TODOS_SUCCESS,
+
     POST_TODOS_REQUEST,
     POST_TODOS_SUCCESS,
     POST_TODOS_FAIL,
+
+    PUT_TODOS_REQUEST,
+    PUT_TODOS_SUCCESS,
+    PUT_TODOS_FAIL,
+
     CHANGE_STATUS_CREATED
 } from '../constants/Todo'
 
@@ -23,28 +29,26 @@ export function getTodos(filter={}) {
 
 
 export function cteateTodo(todo) {
-    var copy = {...todo, status: JSON.parse(todo.status)};
     return {
         types: [POST_TODOS_REQUEST, POST_TODOS_SUCCESS, POST_TODOS_FAIL],
         payload: {
             request:{
                 url: 'todos/',
                 method: 'post',
-                data: copy
+                data: todo
             }
         }
     }
 }
 
 export function updateTodo(todo) {
-    var copy = {...todo, status: JSON.parse(todo.status)};
     return {
-        types: [POST_TODOS_REQUEST, POST_TODOS_SUCCESS, POST_TODOS_FAIL],
+        types: [PUT_TODOS_REQUEST, PUT_TODOS_SUCCESS, PUT_TODOS_FAIL],
         payload: {
             request:{
-                url: 'todos/' + copy.id + '/',
+                url: 'todos/' + todo.id + '/',
                 method: 'put',
-                data: copy
+                data: todo
             }
         }
     }

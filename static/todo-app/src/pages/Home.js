@@ -42,7 +42,6 @@ class Home extends Component {
     }
 
     updateTodo(todo){
-        todo.status = JSON.stringify(todo.status);
         this.props.dispatch(actions.change('todoModel', todo));
         this.props.modalActions.show('todo')
     }
@@ -71,7 +70,11 @@ class Home extends Component {
                         <Button floating large className='green' onClick={this.openModal.bind(this, 'todo')}>Todo</Button>
                     </Button>
                     <Col l={11} m={11} s={10}>
-                        <Status data={this.props.status} selectedStatus={::this.selectedStatus}/>
+                        <Status data={this.props.status} selectedStatus={::this.selectedStatus} delete={(status) => {
+                            this.props.statusActions.deleteStatus(status).then(() => {
+                                this.props.statusActions.getStatuses()
+                            })
+                        }}/>
                     </Col>
                     <Col l={1} m={1} s={2}>
                         <Modal isOpen={this.props.modal.show && this.props.modal.name=='todo'}

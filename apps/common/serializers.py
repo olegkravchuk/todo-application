@@ -48,16 +48,6 @@ class TodoSerializer(serializers.ModelSerializer):
         model = Todo
         fields = ['url', 'id', 'name', 'description', 'created', 'status', 'author', 'comments']
 
-    def create(self, validated_data):
-        # Override default `.create()` method in order to properly add `status` into the model
-        status_data = validated_data.pop('status')
-        try:
-            status_obj = Status.objects.get(**status_data)
-        except Status.DoesNotExist:
-            raise NotFound
-        todo = Todo.objects.create(status=status_obj, **validated_data)
-        return todo
-
 
 class UserSerializer(serializers.ModelSerializer):
     jwt = serializers.SerializerMethodField('get_token_jwt')
