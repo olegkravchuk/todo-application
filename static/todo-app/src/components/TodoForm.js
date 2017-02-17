@@ -64,7 +64,7 @@ export default class TodoForm extends Component{
                         <Col l={12} m={12} s={12} >
                             <Control model=".status.id"
                                      validators={{
-                                        isRequired: (val) => val && !!val.length
+                                        isRequired: (val) => val
                                      }}
                                      validateOn="change"
                                      status={this.props.status}
@@ -72,7 +72,7 @@ export default class TodoForm extends Component{
                         </Col>
                         <Errors wrapper={(props) =><Col l={12} m={12} s={12}><div className="red-text center">{props.children}</div></Col>}
                                 show={{ touched: true, focus: false }}
-                                model=".status"
+                                model=".status.id"
                                 messages={{
                                         isRequired: 'Please provide a status.'
                                     }}

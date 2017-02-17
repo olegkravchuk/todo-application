@@ -5,16 +5,16 @@ import {Row, Col, Preloader, Button, } from 'react-materialize';
 import * as todoActions from '../actions/TodoActions'
 import * as statusActions from '../actions/StatusActions'
 import * as modalActions from '../actions/modalActions'
-//import {initialTodoState} from '../reducers/todo'
+import * as commentActions from '../actions/commentActions'
 import Status from '../components/Status'
 import TodoForm from '../components/TodoForm'
 import StatusForm from '../components/StatusForm'
+import Todo from '../components/Todo'
 import Modal from 'react-modal';
 import {customStyles} from '../constants/Modal'
 import {
     actions
 } from 'react-redux-form';
-
 
 
 class Home extends Component {
@@ -97,18 +97,17 @@ class Home extends Component {
                 </Row>
                 <Row>
                 <Col l={12} m={12} s={12}>
-                    <ul className="collapsible" data-collapsible="accordion">
-                        {results.map((todo) =>
-                                <li key={todo.id}>
-                                    <div className="collapsible-header"><span className="new badge" onClick={this.updateTodo.bind(this, todo)}>update</span><i className="material-icons">label_outline</i>{todo.name}</div>
-                                    <div className="collapsible-body">
-                                        <p>Status: {todo.status.name}</p>
-                                        <p>Description: {todo.description}</p>
-                                        <p>Created: {todo.created}</p>
-                                    </div>
-                                </li>
-                        )}
-                    </ul>
+                    <Todo todos={results}
+                          update={(todo)=>this.updateTodo(todo)}
+                          createComment={this.props.commentActions.createComment}
+                          createComment={(comment) => {
+                            this.props.commentActions.createComment(comment).then(() => {
+                                this.props.dispatch(actions.reset('commentModel'));
+                            })
+                          }}
+                          comment={this.props.comment}
+                          dispatch={this.props.dispatch}
+                        />
                 </Col>
                 </Row>
             </Row>
@@ -121,6 +120,7 @@ function mapStateToProps(state){
         todo: state.todo,
         status: state.status,
         modal: state.modal,
+        comment: state.comment,
         todoModel: state.todoModel
     }
 }
@@ -130,6 +130,7 @@ function mapDispatchToProps(dispatch){
         todoActions: bindActionCreators(todoActions, dispatch),
         statusActions: bindActionCreators(statusActions, dispatch),
         modalActions: bindActionCreators(modalActions, dispatch),
+        commentActions: bindActionCreators(commentActions, dispatch),
         dispatch: dispatch
     }
 }
