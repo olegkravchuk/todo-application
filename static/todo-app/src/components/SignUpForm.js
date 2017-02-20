@@ -17,7 +17,6 @@ export default class SignUpForm extends Component{
 
     }
     render(){
-        console.log(this.props);
         let { error } = this.props.user;
         return (
             <Card className=''>
@@ -25,7 +24,7 @@ export default class SignUpForm extends Component{
                        onSubmit={(user) => this.handleSubmit(user)}
                        validators={{
                                     '': {
-                                        passwordsMatch: (vals) => {console.log(vals.password, vals.passwordConfirm); return vals.password === vals.passwordConfirm}
+                                        passwordsMatch: (vals) => {return vals.password === vals.passwordConfirm}
                                         }
                                    }}>
                     <h2 className="card-heading center">Sign Up</h2>

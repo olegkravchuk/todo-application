@@ -33,7 +33,6 @@ export const initialRegisterState = {
 };
 
 export default function user(state = initialState, action) {
-    console.log(action.type);
     switch (action.type) {
         case LOGIN_REQUEST:
             return {...state, loading: true};

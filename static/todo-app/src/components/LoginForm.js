@@ -4,7 +4,7 @@ import { Link } from 'react-router'
 import { Control, Form, Errors } from 'react-redux-form';
 
 
-const usernameField = (props) => {console.log(props);
+const usernameField = (props) => {
     return <Input error={props.model} l={6} m={6} label="Username" validate {...props}><Icon>account_circle</Icon></Input>};
 const passwordField = (props) => <Input l={6} m={6} label="Password" validate type="password" {...props}><Icon>vpn_key_circle</Icon></Input>;
 

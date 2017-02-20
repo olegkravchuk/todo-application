@@ -1,3 +1,4 @@
+from django.shortcuts import render_to_response
 from rest_framework import status, permissions
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -16,3 +17,6 @@ from rest_framework.reverse import reverse
 #         'todos': reverse('todo-list', request=request, format=format),
 #         'statuses': reverse('status-list', request=request, format=format)
 #     })
+
+def index(request):
+    return render_to_response('index.html')

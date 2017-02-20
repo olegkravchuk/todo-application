@@ -13,8 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
+from django.views.static import serve
+from apps.common.views import index
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 
 # Serializers define the API representation.
@@ -28,13 +31,12 @@ from rest_framework import serializers, viewsets, routers
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
-    # url(r'^todos/$', todos_list),
-
     # url(r'^', include(router.urls)),
-    url(r'^', include('apps.common.urls')),
+    url(r'^api/v1/', include('apps.common.urls')),
 
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api-token-auth/', obtain_jwt_token),
-    url(r'^api-token-refresh/', refresh_jwt_token),
-    url(r'^api-token-verify/', verify_jwt_token),
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    url(r'^files/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    # url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT})
+
+    url(r'^.*', index, name='index'),
 ]

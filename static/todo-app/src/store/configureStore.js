@@ -3,7 +3,7 @@ import { routerMiddleware } from 'react-router-redux'
 import { browserHistory } from 'react-router'
 import rootReducer from '../reducers'
 //import {ping} from '../middlewares/ping'
-import createLogger from 'redux-logger'
+//import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 //import DevTools from '../containers/DevTools';
 import axios from 'axios';
@@ -12,9 +12,9 @@ import {getToken} from '../reducers/user'
 
 
 export default function configureStore(initialState) {
-    const logger = createLogger();
+    //const logger = createLogger();
     const client = axios.create({ //all axios can be used, shown in axios documentation
-        baseURL:'http://127.0.0.1:8000/',
+        baseURL:'http://127.0.0.1:8000/api/v1/',
         responseType: 'json'
     }
     );
@@ -42,7 +42,7 @@ export default function configureStore(initialState) {
         compose(
             applyMiddleware(
                 thunk,
-                logger,
+                //logger,
                 axiosMiddleware(client, option),
                 routerMiddleware(browserHistory)
             ),

@@ -13,7 +13,7 @@ module.exports = {
         './src/index'
     ],
     output: {
-        path: path.join(__dirname, 'dist'),
+        path: path.join(__dirname, '../dist'),
         filename: 'bundle.js',
         publicPath: '/static/'
     },
@@ -28,7 +28,7 @@ module.exports = {
                 test: /\.js$/,
                 loaders: ['eslint'],
                 include: [
-                    path.resolve(__dirname, "src")
+                    path.resolve(__dirname, "../src")
                 ]
             }
         ],
@@ -36,7 +36,7 @@ module.exports = {
             {
                 loaders: ['react-hot', 'babel-loader'],
                 include: [
-                    path.resolve(__dirname, "src")
+                    path.resolve(__dirname, "../src")
                 ],
                 test: /\.js$/,
                 plugins: ['transform-runtime']
