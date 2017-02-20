@@ -69,14 +69,14 @@ class Home extends Component {
                         <Button floating large className='blue' onClick={this.openModal.bind(this, 'status')}>Status</Button>
                         <Button floating large className='green' onClick={this.openModal.bind(this, 'todo')}>Todo</Button>
                     </Button>
-                    <Col l={11} m={11} s={10}>
-                        <Status data={this.props.status} selectedStatus={::this.selectedStatus} delete={(status) => {
-                            this.props.statusActions.deleteStatus(status).then(() => {
-                                this.props.statusActions.getStatuses()
-                            })
-                        }}/>
-                    </Col>
-                    <Col l={1} m={1} s={2}>
+
+                    <Status data={this.props.status} selectedStatus={::this.selectedStatus} delete={(status) => {
+                        this.props.statusActions.deleteStatus(status).then(() => {
+                            this.props.statusActions.getStatuses()
+                        })
+                    }}/>
+
+                    <Col l={12} m={12} s={12}>
                         <Modal isOpen={this.props.modal.show && this.props.modal.name=='todo'}
                                style={customStyles}
                                shouldCloseOnOverlayClick={true}
@@ -99,6 +99,11 @@ class Home extends Component {
                 <Col l={12} m={12} s={12}>
                     <Todo todos={results}
                           update={(todo)=>this.updateTodo(todo)}
+                          delete={(todo) => {
+                            this.props.todoActions.deleteTodo(todo).then((() => {
+                                this.props.todoActions.getTodos();
+                                }))
+                            }}
                           createComment={this.props.commentActions.createComment}
                           createComment={(comment) => {
                             this.props.commentActions.createComment(comment).then(() => {

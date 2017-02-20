@@ -31,7 +31,7 @@ export const initialStatusState = {
     code: ''
 };
 
-export default function todo(state=initialState, action){
+export default function status(state=initialState, action){
     switch (action.type){
         case GET_STATUSES_REQUEST:
             return {...state, loading: true};

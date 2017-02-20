@@ -18,8 +18,8 @@ export const customStyles = {
         bottom                : 'auto',
         marginRight           : '-50%',
         transform             : 'translate(-50%, -50%)',
-        height: '65%',
-        width: '50% '
+        height: '65%'
+        //width: '50% '
 
     }
 };

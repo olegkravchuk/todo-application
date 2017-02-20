@@ -11,6 +11,10 @@ import {
     PUT_TODOS_SUCCESS,
     PUT_TODOS_FAIL,
 
+    DELETE_TODOS_REQUEST,
+    DELETE_TODOS_SUCCESS,
+    DELETE_TODOS_FAIL,
+
     CHANGE_STATUS_CREATED
 } from '../constants/Todo'
 
@@ -49,6 +53,18 @@ export function updateTodo(todo) {
                 url: 'todos/' + todo.id + '/',
                 method: 'put',
                 data: todo
+            }
+        }
+    }
+}
+
+export function deleteTodo(todo) {
+    return {
+        types: [DELETE_TODOS_REQUEST, DELETE_TODOS_SUCCESS, DELETE_TODOS_FAIL],
+        payload: {
+            request:{
+                url: 'todos/' + todo.id + '/',
+                method: 'delete'
             }
         }
     }

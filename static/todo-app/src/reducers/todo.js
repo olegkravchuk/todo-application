@@ -11,6 +11,10 @@ import {
     PUT_TODOS_SUCCESS,
     PUT_TODOS_FAIL,
 
+    DELETE_TODOS_REQUEST,
+    DELETE_TODOS_SUCCESS,
+    DELETE_TODOS_FAIL,
+
     CHANGE_STATUS_CREATED
 } from '../constants/Todo'
 
@@ -61,6 +65,13 @@ export default function todo(state=initialState, action){
             return {...state, loading: false, created: true};
         case PUT_TODOS_FAIL:
             return {...state, error: action.error.response.data, loading: false, created: false};
+
+        case DELETE_TODOS_REQUEST:
+            return {...state, loading: true};
+        case DELETE_TODOS_SUCCESS:
+            return {...state, loading: false};
+        case DELETE_TODOS_FAIL:
+            return {...state, error: action.error.response.data, loading: false};
 
         case CHANGE_STATUS_CREATED:
             return {...state, loading: false, created: action.payload};

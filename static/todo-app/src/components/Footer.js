@@ -5,11 +5,11 @@ export default class Footer extends Component {
 
     render(){
         return(
-            <MaterializeFooter copyrights="&copy; 2015 Copyright Text"
-                  moreLinks={
+            <MaterializeFooter copyrights="&copy; 2017 Copyright O. Kravchuk">
+                {/*moreLinks={
                     <a className="grey-text text-lighten-4 right" href="#!">More Links</a>
-                  }
-                  links={
+                  } */}
+                {/*links={
                     <ul>
                       <li><a className="grey-text text-lighten-3" href="#!">Link 1</a></li>
                       <li><a className="grey-text text-lighten-3" href="#!">Link 2</a></li>
@@ -17,10 +17,10 @@ export default class Footer extends Component {
                       <li><a className="grey-text text-lighten-3" href="#!">Link 4</a></li>
                     </ul>
                   }
-                  className='example'
-                >
-                    <h5 className="white-text">Footer Content</h5>
-                    <p className="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+                  className='example'*/}
+
+                {/*<h5 className="white-text">Footer Content</h5>
+                    <p className="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>*/}
             </MaterializeFooter>
         )
     }

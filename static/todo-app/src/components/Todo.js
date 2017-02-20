@@ -16,12 +16,18 @@ export default class Todo extends Component{
     resetCommentForm(){
         this.props.dispatch(actions.reset('commentModel'));
     }
+    deleteTodo(todo){
+        var r = confirm('Are you sure you want to delete the item?');
+        if (r == true) {
+            this.props.delete(todo);
+        }
+    }
 
     render(){
         return (<ul className="collapsible" data-collapsible="accordion">
             {this.props.todos.map((todo) =>{
                     return <li key={todo.id}>
-                        <div className="collapsible-header" onClick={::this.resetCommentForm}><span className="new badge" onClick={this.updateTodo.bind(this, todo)}>update</span><i className="material-icons">label_outline</i>{todo.name}</div>
+                        <div className="collapsible-header" onClick={::this.resetCommentForm}><span className="new badge" onClick={this.updateTodo.bind(this, todo)}>update</span><span className="new badge" onClick={this.deleteTodo.bind(this, todo)}>delete</span><i className="material-icons">label_outline</i>{todo.name}</div>
                         <div className="collapsible-body">
                             <Row>
                                 <Col l={6} m={6} s={12}>
