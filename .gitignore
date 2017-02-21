@@ -10,5 +10,8 @@ static/release/**
 static/uploads/**
 static/todo-app/node_modules
 static/todo-app/node_modules/**
+todo-app/node_modules
+todo-app/node_modules/**
+todo-app/.idea
 
 logs/
