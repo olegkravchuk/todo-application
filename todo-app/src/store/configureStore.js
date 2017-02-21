@@ -14,7 +14,7 @@ import {getToken} from '../reducers/user'
 export default function configureStore(initialState) {
     //const logger = createLogger();
     const client = axios.create({ //all axios can be used, shown in axios documentation
-        baseURL:'http://127.0.0.1:8000/api/v1/',
+        baseURL:'https://okravchuk.herokuapp.com/api/v1/',
         responseType: 'json'
     }
     );
