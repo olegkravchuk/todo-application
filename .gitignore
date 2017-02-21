@@ -15,3 +15,5 @@ todo-app/node_modules/**
 todo-app/.idea
 
 logs/
+
+db.sqlite3

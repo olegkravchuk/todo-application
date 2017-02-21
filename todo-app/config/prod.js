@@ -18,7 +18,7 @@ module.exports = {
         './src/index'
     ],
     output: {
-        path: path.join(__dirname, '../dist'),
+        path: path.join(__dirname, '../../static/todo-app/dist'),
         filename: 'bundle.js',
         publicPath: ''
     },
@@ -71,7 +71,7 @@ module.exports = {
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
-                loader: 'file?name=static/todo-app/dist/public/fonts/[name].[ext]'
+                loader: 'file?name=public/fonts/[name].[ext]'
             }
         ]
     },
