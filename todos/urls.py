@@ -34,9 +34,9 @@ urlpatterns = [
     # url(r'^', include(router.urls)),
     url(r'^api/v1/', include('apps.common.urls')),
 
-    url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    # url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
     url(r'^files/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
-    # url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT})
+    url(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}),
 
     url(r'^.*', index, name='index'),
 ]
